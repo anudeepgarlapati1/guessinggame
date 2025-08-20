@@ -1,28 +1,27 @@
 #!/usr/bin/env bash
-# guessinggame.sh
-# A simple guessing game for file count in the current directory
 
-function count_files {
-    # Counts only regular files (not directories, symlinks, etc.)
+# Function to count files
+function file_count {
     echo $(ls -1 | wc -l)
 }
 
-file_count=$(count_files)
-guess=-1
+# Store the correct number of files
+correct=$(file_count)
 
-echo "Welcome to the Guessing Game!"
-echo "How many files do you think are in the current directory?"
+echo "Welcome to Guessing Game!"
+echo "How many files are in the current directory?"
 
-while [[ $guess -ne $file_count ]]
+while true
 do
-    read -p "Enter your guess: " guess
-    if [[ $guess -lt $file_count ]]
+    read guess
+    if [[ $guess -lt $correct ]]
     then
-        echo "Too low! Try again."
-    elif [[ $guess -gt $file_count ]]
+        echo "Too low, try again:"
+    elif [[ $guess -gt $correct ]]
     then
-        echo "Too high! Try again."
+        echo "Too high, try again:"
     else
-        echo "🎉 Congratulations! You guessed it right. There are $file_count files."
+        echo "Congratulations! You guessed it right!"
+        break
     fi
 done
